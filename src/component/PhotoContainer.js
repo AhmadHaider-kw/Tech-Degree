@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import Photo from './Photo';
-import NotFound from './NotFound';
 
 export default class PhotoContainer extends Component {
+	componentDidUpdate() {
+		if (this.props.searchText !== this.props.query) {
+			this.props.SearchForPhoto(this.props.query);
+		}
+	}
+
 	render() {
 		const results = this.props.data;
 		const photos = results.map((photo) => (

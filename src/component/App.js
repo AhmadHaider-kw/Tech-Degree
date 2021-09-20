@@ -17,6 +17,7 @@ export default class App extends Component {
 		cats: [],
 		dogs: [],
 		computers: [],
+		searchquery: '',
 	};
 
 	componentDidMount() {
@@ -32,6 +33,7 @@ export default class App extends Component {
 			.then((response) => {
 				this.setState({
 					photos: response.data.photos.photo,
+					searchquery: query,
 				});
 			})
 			.catch((error) => {
@@ -88,10 +90,12 @@ export default class App extends Component {
 						<Route
 							exact
 							path={`/search/:query`}
-							render={() => (
+							render={({ match }) => (
 								<PhotoContainer
 									data={this.state.photos}
 									SearchForPhoto={this.SearchForPhoto}
+									searchText={this.state.searchquery}
+									query={match.params.query}
 								/>
 							)}
 						/>
